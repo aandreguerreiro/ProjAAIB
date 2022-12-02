@@ -1,0 +1,48 @@
+tasks:
+  - init: |
+      (
+        pip3 install --upgrade pip
+        sudo pip3 install streamlit
+        sudo apt install -y mosquitto
+        sudo apt install -y mosquitto-clients
+        sudo service mosquitto start
+        sudo service mosquitto status
+        #To install Paho-MQTT
+        sudo pip3 install paho-mqtt
+        git clone https://github.com/eclipse/paho.mqtt.python.git
+        cd paho.mqtt.python
+        python setup.py install
+        sudo apt-get -y install libsndfile-dev
+        sudo apt-get -y install libsndfile1-dev
+        sudo apt install build-essential portaudio19-dev python3.10-dev
+        sudo apt-get -y install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
+        sudo apt-get -y install ffmpeg libav-tools
+        sudo pip install pyaudio
+        pip install pycopy-audioop
+        sudo pip install pandas
+        sudo pip install numpy
+        sudo pip install matplotlib
+        sudo pip install time
+        sudo pip install spicy
+        sudo pip install --upgrade librosa
+        sudo pip install --upgrade matplotlib
+        gp sync-done installation
+      )
+  - init: gp sync-await installation    
+    command: streamlit run streamlitapp.py
+  - init: gp sync-await installation
+    command: python -m subscriber.py
+    
+
+ports:
+  - port: 1883
+    onOpen: ignore
+  - port: 8501
+    name: web page
+    description: gp port openning
+    onOpen: open-browser
+    visibility: public
+
+github:
+  prebuilds:
+    master: false
