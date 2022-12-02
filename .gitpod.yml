@@ -31,7 +31,7 @@ tasks:
   - init: gp sync-await installation    
     command: streamlit run streamlitapp.py
   - init: gp sync-await installation
-    command: python -m subscriber.py
+    command: python subscriber.py
     
 
 ports:
